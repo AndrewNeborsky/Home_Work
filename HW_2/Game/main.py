@@ -1,4 +1,4 @@
-from HW_2.Game.mymodule import board_draw, win
+from HW_2.Game.mymodule import board_draw, win, check
 
 
 board = [[' ', ' ', ' '], [' ', ' ', ' '], [' ', ' ', ' ']]
@@ -17,15 +17,7 @@ while step < 9:
     x = int(input('Введите координаты хода: \n x = ')) - 1
     y = int(input(' y = ')) - 1
 
-    if x > 2 or y > 2:
-        print('Данной ячейки не существует.\nВведите координаты другой ячейки: ')
-        x = int(input(' x = ')) - 1
-        y = int(input(' y = ')) - 1
-
-    while board[x][y] != ' ':
-        print('Данная ячейка занята.\nВведите координаты другой ячейки: ')
-        x = int(input(' x = ')) - 1
-        y = int(input(' y = ')) - 1
+    x, y = check(x, y, board)
 
     board[x][y] = player
 

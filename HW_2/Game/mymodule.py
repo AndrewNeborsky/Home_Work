@@ -17,3 +17,17 @@ def win(v, sign):
 
     if v[0][0] == v[1][1] == v[2][2] == sign or v[0][2] == v[1][1] == v[2][0] == sign:
         return True
+
+
+def check(a, b, v):
+    while a > 2 or b > 2:
+        print('Данной ячейки не существует.\nВведите координаты другой ячейки: ')
+        a = int(input(' x = ')) - 1
+        b = int(input(' y = ')) - 1
+
+    while v[a][b] != ' ':
+        print('Данная ячейка занята.\nВведите координаты другой ячейки: ')
+        a = int(input(' x = ')) - 1
+        b = int(input(' y = ')) - 1
+
+    return a, b
