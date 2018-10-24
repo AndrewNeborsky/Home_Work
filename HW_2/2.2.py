@@ -18,4 +18,4 @@ while w[0] != d[wd]:
     w = monthrange(j, i)
     i += 1
 
-print('The next month and year, when this day will fallen on the 1st is', month_name[i-1], j)
+print('The month and year, when this day will gotten on the 1st is', month_name[i-1], j)
