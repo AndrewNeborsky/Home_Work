@@ -1,4 +1,4 @@
-import string
+from string import ascii_lowercase
 
 f = open('text.txt', 'r')
 t = f.read()
@@ -7,23 +7,17 @@ f.close()
 print('Текст в файле: \n%s' % t, '\n')
 
 words = len(t.split())
-print('Количество слов в файле:', words)
+print('Количество слов в файле:', words, '\n')
 
-print('Буквы, их количество в файле: \n')
+print('Буквы, их количество в файле: ')
 
 seq = list(t.lower())
-i = 0
 
-while i < len(seq):
-    num = seq.count(seq[i])
-    for j in range(len(seq) - 1, i - 1, -1):
-        if seq[i] == seq[j] and i != j:
-            del seq[j]
-    if seq[i] == '\n' or seq[i] == ' ' or seq[i] == '.' or seq[i] == ',' or seq[i] == "'":
-        del seq[i]
-    else:
-        print('%s: ' % seq[i], num)
-    i += 1
+for i in range(len(ascii_lowercase)):
+    num = seq.count(ascii_lowercase[i])
+
+    if num != 0:
+        print('%s: ' % ascii_lowercase[i], num)
 
 ctr = len(t)//2
 
