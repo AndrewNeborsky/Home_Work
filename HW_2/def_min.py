@@ -49,4 +49,4 @@ print(min(x, y, z, default=0xE0F))  # result: 1
 print(min(value_sequence, default=0xE0F))  # result: 1
 print(min(empty_sequence, default=0xE0F))  # result: 3599
 
-print(min(empty_sequence))  # error!
+# print(min(empty_sequence))  # error!

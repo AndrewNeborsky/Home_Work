@@ -20,7 +20,7 @@ def win(v, sign):
 
 
 def check(a, b, v):
-    while a > 2 or b > 2:
+    while a > 2 or b > 2 or a < 0 or b < 0:
         print('Данной ячейки не существует.\nВведите координаты другой ячейки: ')
         a = int(input(' x = ')) - 1
         b = int(input(' y = ')) - 1

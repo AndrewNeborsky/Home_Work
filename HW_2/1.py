@@ -19,8 +19,12 @@ for i in range(len(ascii_lowercase)):
     if num != 0:
         print('%s: ' % ascii_lowercase[i], num)
 
-ctr = len(t)//2
+seq = t.split('\n')
+ctr = len(seq)//2
+
+
+t = seq[ctr: len(seq)] + seq[0: ctr]
 
 f = open('text.txt', 'w')
-f.write(t[ctr: len(t)] + t[0: ctr])
+f.write('\n'.join(t))
 f.close()
