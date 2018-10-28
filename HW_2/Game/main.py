@@ -1,11 +1,10 @@
-from HW_2.Game.mymodule import board_draw, win, check
-
+from HW_2.Game.mymodule import print_field, check_field, make_turn
 
 board = [[' ', ' ', ' '], [' ', ' ', ' '], [' ', ' ', ' ']]
-board_draw(board)
+
+print_field(board)
 
 step = 0
-player = 'x'
 
 while step < 9:
     if step % 2 == 0:
@@ -17,15 +16,13 @@ while step < 9:
     x = int(input('Введите координаты хода: \n x = ')) - 1
     y = int(input(' y = ')) - 1
 
-    x, y = check(x, y, board)
-
-    board[x][y] = player
+    make_turn(board, x, y, player)
 
     print('\n' * 50)
-    board_draw(board)
+    print_field(board)
 
     if step > 3:
-        if win(board, player):
+        if check_field(board, player):
             print('Победил игрок со знаком %s' % player)
             break
 
