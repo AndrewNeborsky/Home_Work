@@ -2,7 +2,7 @@ L = input('Введите количество чисел: ')
 i = 0
 s = 0
 
-while i < int(L):
+while i < int(L):  # Лучше использовать for i in range(L)
     a = input('Число №%d: ' % (i+1))
     a = int(a)
 
