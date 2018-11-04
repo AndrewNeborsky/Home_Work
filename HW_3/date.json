@@ -1,0 +1,14 @@
+����{
+    "John Doe": {
+        "age": 42,
+        "profession": "Loafer"
+    },
+    "Elizabeth Wisdor": {
+        "age": 92,
+        "profession": "Queen of the United Kingdom"
+    },
+    "Andrew": {
+        "age": 19,
+        "profession": "Student"
+    }
+}
