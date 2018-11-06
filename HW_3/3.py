@@ -3,20 +3,21 @@ from json import loads, dumps
 try:
     with open('date.json', 'rb') as f:
         s = f.read()
+    FileIsFound = True
 except FileNotFoundError:
-    with open('date.json', 'wb') as f:
-        f.write(b'\xca\xfe\xba\xbe')
-    with open('date.json', 'rb') as f:
-        s = f.read()
+    print('Файл не обнаружен.\nФайл будет перезаписан.')
+    s = {}
+    FileIsFound = False
 
 
-if s[:4] == b'\xca\xfe\xba\xbe':
+if FileIsFound and s[:4] == b'\xca\xfe\xba\xbe':
     s = bytearray(s)
     del s[:4]
 
     s = s.decode()
+    s = loads(s)
 
-elif s[:4] == b'\x8b\xad\xf0\x0d':
+elif FileIsFound and s[:4] == b'\x8b\xad\xf0\x0d':
     s = bytearray(s)
     del s[:4]
     
@@ -25,11 +26,12 @@ elif s[:4] == b'\x8b\xad\xf0\x0d':
         a.append(255 - b)
 
     s = a.decode()
-
-try:
     s = loads(s)
-except:
+
+elif FileIsFound and s[0] != '{':
+    print('Файл поврежден.\nФайл будет перезаписан.')
     s = {}
+
 
 d = {input('Введите имя: '): {'age': int(input('Введите возраст: ')), 'profession': input('Введите профессию: ')}}
 s.update(d)
