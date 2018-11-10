@@ -41,11 +41,45 @@ class Rectangle(Shape):
 
 
 class Ellipse(Shape):
-    pass
+    def __init__(self, big_axis: float, small_axis: float, x: float = 0, y: float = 0, color: str = 'black'):
+        super().__init__(x, y, color)
+        self.__big_axis = big_axis
+        self.__small_axis = small_axis
+
+    def draw(self) -> None:
+        top_left = Point(self.x - self.__big_axis / 2, self.y - self.__small_axis / 2)
+        bottom_right = Point(self.x + self.__big_axis / 2, self.y + self.__small_axis / 2)
+        graphics.draw_ellipse(top_left, bottom_right, self.color)
+
+    @property
+    def width(self):
+        return self.__big_axis
+
+    @property
+    def height(self):
+        return self.__small_axis
 
 
 class Triangle(Shape):
-    pass
+    def __init__(self, base: float, height: float, x: float = 0, y: float = 0, color: str = 'black'):
+        super().__init__(x, y, color)
+        self.__base = base
+        self.__height = height
+
+    def draw(self) -> None:
+        point_1 = Point(self.x - self.__base / 2, self.y + self.__height / 2)
+        point_2 = Point(self.x + self.__base / 2, self.y + self.__height / 2)
+        point_3 = Point(self.x, self.y - self.__height / 2)
+
+        graphics.draw_polygon(iter([point_1, point_2, point_3]), self.color)
+
+    @property
+    def width(self):
+        return self.__base
+
+    @property
+    def height(self):
+        return self.__height
 
 
 class Square(Rectangle):
@@ -54,4 +88,5 @@ class Square(Rectangle):
 
 
 class Circle(Ellipse):
-    pass
+    def __init__(self, radius: float, x: float = 0, y: float = 0, color: str = 'black'):
+        super().__init__(radius, radius, x, y, color)

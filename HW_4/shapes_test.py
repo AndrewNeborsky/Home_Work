@@ -17,9 +17,34 @@ def square_input():
     return Square(size, color=color)
 
 
+def ellipse_input():
+    big_axis = int(input('Enter big axis: '))
+    small_axis = int(input('Enter small axis: '))
+    color = input('Enter color (red, green, blue, cyan, magenta, yellow, white, black, etc.): ')
+    color = color.strip().lower()
+    return Ellipse(big_axis, small_axis, color=color)
+
+
+def triangle_input():
+    base = int(input('Enter base of the triangle: '))
+    height = int(input('Enter height of the triangle: '))
+    color = input('Enter color (red, green, blue, cyan, magenta, yellow, white, black, etc.): ')
+    color = color.strip().lower()
+    return Triangle(base, height, color=color)
+
+
+def circle_input():
+    radius = int(input('Enter radius: '))
+    color = input('Enter color (red, green, blue, cyan, magenta, yellow, white, black, etc.): ')
+    return Circle(radius, color=color)
+
+
 figure_input = {
     'rectangle': rectangle_input,
-    'square': square_input
+    'square': square_input,
+    'ellipse': ellipse_input,
+    'triangle': triangle_input,
+    'circle': circle_input
 }
 
 
