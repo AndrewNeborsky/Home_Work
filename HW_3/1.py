@@ -2,25 +2,35 @@ from random import randrange
 from functools import reduce
 
 
+def union(a, x):
+    a.add(x)
+    return a
+
+
 def reverse(a, x):
     a.insert(0, x)
     return a
 
 
-def fun(value, action):
-    d = {'sum': reduce(lambda a, x: a + x, value),
-         'multiply': reduce(lambda a, x: a * x, value),
-         'join': reduce(lambda a, x: 10 * a + x, value, 0),
-         'union': set(value),
-         'reverse': reduce(reverse, value, list()),
-         'negated': map(lambda x: -x, value),
-         'inverted': map(lambda x: 1 / x, value),
-         'squared': map(lambda x: x * x, value),
-         'odds': filter(lambda x: x % 2 != 0, value),
-         'evens': filter(lambda x: x % 2 == 0, value),
-         'simples': filter(lambda x: x in {1, 2, 3, 5, 7}, value)}
+def fun(value, *action):
+    d_1 = {'sum': lambda a, x: a + x,
+           'multiply': lambda a, x: a * x,
+           'join': lambda a, x: 10 * a + x,
+           'union': union,
+           'reverse': reverse}
 
-    return d[action]
+    d_2 = {'negated': lambda x: -x,
+           'inverted': lambda x: 1 / x,
+           'squared': lambda x: x * x}
+
+    d_3 = {'odds': lambda x: x % 2 != 0,
+           'evens': lambda x: x % 2 == 0,
+           'simples': lambda x: x in {1, 2, 3, 5, 7}}
+
+    d_start = {'sum': 0, 'multiply': 1, 'join': 0, 'union': set(), 'reverse': list()}
+
+    d = reduce(d_1[action[0]], map(d_2[action[1]], filter(d_3[action[2]], value)), d_start[action[0]])
+    return d
 
 
 L = int(input('N: '))
@@ -30,11 +40,17 @@ for i in range(L):
 
 print(seq)
 
-actions = input('Action: ')
-actions = actions.split(' ')
+while True:
+    actions = input('Action: ')
+    actions = actions.split(' ')
 
-seq = list(fun(seq, actions[2]))
-seq = list(fun(seq, actions[1]))
-seq = fun(seq, actions[0])
+    try:
+        seq = fun(seq, *actions)
+    except KeyError:
+        print('Action is not correct.\nTry again.')
+    except IndexError:
+        print('Action is too small.\nTry again.')
+    else:
+        break
 
 print(seq)

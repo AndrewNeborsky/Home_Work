@@ -2,6 +2,7 @@ from json import loads, dumps
 
 try:
     with open('date.json', 'rb') as f:
+        code = f.read(4)
         s = f.read()
     FileIsFound = True
 except FileNotFoundError:
@@ -10,17 +11,11 @@ except FileNotFoundError:
     FileIsFound = False
 
 
-if FileIsFound and s[:4] == b'\xca\xfe\xba\xbe':
-    s = bytearray(s)
-    del s[:4]
-
+if FileIsFound and code == b'\xca\xfe\xba\xbe':
     s = s.decode()
     s = loads(s)
 
-elif FileIsFound and s[:4] == b'\x8b\xad\xf0\x0d':
-    s = bytearray(s)
-    del s[:4]
-    
+elif FileIsFound and code == b'\x8b\xad\xf0\x0d':
     a = bytearray()
     for b in s:
         a.append(255 - b)
@@ -28,7 +23,7 @@ elif FileIsFound and s[:4] == b'\x8b\xad\xf0\x0d':
     s = a.decode()
     s = loads(s)
 
-elif FileIsFound and s[0] != '{':
+elif FileIsFound:
     print('Файл поврежден.\nФайл будет перезаписан.')
     s = {}
 
