@@ -29,8 +29,7 @@ def fun(value, *action):
 
     d_start = {'sum': 0, 'multiply': 1, 'join': 0, 'union': set(), 'reverse': list()}
 
-    d = reduce(d_1[action[0]], map(d_2[action[1]], filter(d_3[action[2]], value)), d_start[action[0]])
-    return d
+    return reduce(d_1[action[0]], map(d_2[action[1]], filter(d_3[action[2]], value)), d_start[action[0]])
 
 
 L = int(input('N: '))
