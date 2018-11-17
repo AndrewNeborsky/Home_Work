@@ -45,10 +45,8 @@ while True:
 
     try:
         seq = fun(seq, *actions)
-    except KeyError:
+    except (KeyError, IndexError):
         print('Action is not correct.\nTry again.')
-    except IndexError:
-        print('Action is too small.\nTry again.')
     else:
         break
 
