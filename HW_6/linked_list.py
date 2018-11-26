@@ -19,7 +19,8 @@ class LinkedList(object):
                 node = Node(value)
                 last.next = node
                 last = node
-                self.__length += 1
+
+                print(self.__head.__dict__)
 
     def insert(self, index: int, value: Any) -> None:
         if index < 0:
@@ -32,13 +33,37 @@ class LinkedList(object):
             self.append(value)
             return
 
-        raise NotImplementedError()
+        temp_1 = value
+        for i in range(index, self.__length):
+            temp_2 = self.__getitem__(i)
+            self.__setitem__(i, temp_1)
+            temp_1 = temp_2
+        last = self.__head
+        for i in range(self.__length):
+            last = last.next
+        node = Node(temp_1)
+        last.next = node
+        self.__length += 1
 
     def append(self, value: Any) -> None:
-        raise NotImplementedError()
+        last = self.__head
+        for i in range(self.__length):
+            last = last.next
+        node = Node(value)
+        last.next = node
+        self.__length += 1
 
     def erase(self, index: int) -> None:
-        raise NotImplementedError()
+        node = self.__head
+        for i in range(-1, index):
+            node = node.next
+
+        for i in range(index + 1, self.__length):
+            temp = self.__getitem__(i)
+            self.__setitem__(i - 1, temp)
+
+        self.__setitem__(self.__length - 1, None)
+        self.__length -= 1
 
     def __iter__(self):
         node = self.__head.next
@@ -79,6 +104,7 @@ class LinkedList(object):
         node = self.__head
         for i in range(-1, index):
             node = node.next
+
         node.value = value
 
     def __set_slice(self, index: slice, values: Iterable) -> None:

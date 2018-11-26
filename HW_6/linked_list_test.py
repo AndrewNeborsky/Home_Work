@@ -1,5 +1,5 @@
 from random import random, randint
-from linked_list import LinkedList
+from HW_6.linked_list import LinkedList
 
 
 seq1 = LinkedList()
@@ -11,7 +11,7 @@ size4 = randint(size2 // 3, size2 // 2)
 
 
 def check(size):
-    assert len(seq1) == len(seq2) == size
+    assert len(seq1) == len(seq2) == size, 'Фигня!!!'
     for i in range(size):
         value1, value2 = seq1[i], seq2[i]
         assert value1 == value2
