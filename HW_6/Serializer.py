@@ -307,12 +307,12 @@ class Boolean(Serializer, hint=bool):
 
     @classmethod
     def dump(cls, value: bool, io: BinaryIO) -> None:
-        io.write(pack('>B', value))
+        io.write(pack('>?', value))
 
     @classmethod
     def load(cls, io: BinaryIO) -> bool:
-        value, = unpack('>B', io.read(1))
-        return bool(value)
+        value, = unpack('>?', io.read(1))
+        return value
 
 
 class Li (Serializer, hint=list):
@@ -322,23 +322,22 @@ class Li (Serializer, hint=list):
 
     @classmethod
     def dump(cls, value: list, io: BinaryIO) -> None:
-        num = len(value)
-        for i in range(num):
+        size = len(value)
+        UnsignedInteger.dump(size, io)
+        for i in range(size):
             serializer = SerializerMeta.resolve_type(value[i])
             io.write(pack('>I', serializer.uid))
             serializer.dump(value[i], io)
 
     @classmethod
     def load(cls, io: BinaryIO) -> list:
-        l = []
-        while True:
-            try:
-                uid, = unpack('>I', io.read(4))
-                serializer = SerializerMeta.resolve_uid(uid)
-                value = serializer.load(io)
-                l.append(value)
-            except:
-                break
+        l: list = []
+        size = UnsignedInteger.load(io)
+        for i in range(size):
+            uid, = unpack('>I', io.read(4))
+            serializer = SerializerMeta.resolve_uid(uid)
+            value = serializer.load(io)
+            l.append(value)
         return l
 
 
